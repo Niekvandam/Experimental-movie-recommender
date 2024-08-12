@@ -44,7 +44,7 @@ As previously mentioned, we use OpenAI, OMDB and TMDB in this project.
 - **OMDB API key**: [Can be requested here](https://www.omdbapi.com/apikey.aspx)
 - **OpenAI API key**: [Can be made here](https://platform.openai.com/api-keys)
 
-These will need to be set, respsectively, in the `.env`. You can copy the .env.example as an example.
+These will need to be set, respsectively, in the `.env`. You can copy the `.env.example` as an example.
 
 ## Running the API
 Running the API from FastAPI is one command in the terminal from the root of the project. 
@@ -52,8 +52,11 @@ Running the API from FastAPI is one command in the terminal from the root of the
 python api.py
 ```
 
+The Swagger API will be ran on `http://localhost:8000/docs`
+
 ## Running Streamlit
 To run the streamlit environment you will need to execute a python file from the streamlit package. This can be done by using
 ```
 python -m streamlit run movie_recommender.py
 ```
+The streamlit app can be found on `http://localhost:8501`

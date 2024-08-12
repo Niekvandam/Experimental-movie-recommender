@@ -1,6 +1,5 @@
 import os
 import openai
-import logging
 
 def get_themoviedb_headers() -> dict[str, str]:
     return {
