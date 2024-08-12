@@ -6,7 +6,7 @@ import numpy as np
 import pysrt
 from Movie import Movie
 from recommenders.Recommender import RecommenderInterface
-from settings import SRT_JSON_PATH, SRT_PATH
+from settings import SRT_JSON_PATH, SRT_PATH, SRT_INTERVAL
 from auth import get_openai_client
 from helpers import cosine_similarity, create_preference_embedding, create_text_embedding, load_json_data
 from user_profile import UserProfile
@@ -77,7 +77,7 @@ class SubtitleLoader:
         """Parses a single SRT file and creates a dictionary of the subtitles and embeddings."""
         
         movie = {}
-        interval_length = 10
+        interval_length = SRT_INTERVAL
         current_interval = 10
         current_text = ""
         

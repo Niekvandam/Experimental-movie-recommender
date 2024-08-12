@@ -14,3 +14,4 @@ SRT_JSON_PATH = "data/json/subtitles.json"
 
 SRT_PATH = "data/subtitles/"
 
+SRT_INTERVAL = 10 
