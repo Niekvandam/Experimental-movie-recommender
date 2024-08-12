@@ -72,7 +72,9 @@ def discover_movies(user_profile: UserProfile) -> List:
     response = requests.get(url, headers=get_themoviedb_headers())
     data = response.json()
     if data.get('results') == []:
-        st.error("No movies found with the given criteria (this is really buggy sometimes?), switching to pure AI")
+        st.error("No movies found with these filters, please try different ones.")
+        logging.error("No movies found with these filters. Result is the following:")
+        logging.error(data)
         return []
     else:
         return data['results']
