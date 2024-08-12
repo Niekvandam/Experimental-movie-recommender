@@ -37,6 +37,15 @@ Optionally, you can create a .venv and execute it from there.
 
 Once it is properly installed, there are two ways of accessing the project. With FastAPI or Python 
 
+## Setting up .env
+As previously mentioned, we use OpenAI, OMDB and TMDB in this project. 
+
+- **TMDB API key**: [Can be found here](https://developer.themoviedb.org/reference/intro/getting-started)
+- **OMDB API key**: [Can be requested here](https://www.omdbapi.com/apikey.aspx)
+- **OpenAI API key**: [Can be made here](https://platform.openai.com/api-keys)
+
+These will need to be set, respsectively, in the `.env`. You can copy the .env.example as an example.
+
 ## Running the API
 Running the API from FastAPI is one command in the terminal from the root of the project. 
 ```
