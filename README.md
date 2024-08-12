@@ -39,8 +39,12 @@ Once it is properly installed, there are two ways of accessing the project. With
 
 ## Running the API
 Running the API from FastAPI is one command in the terminal from the root of the project. 
-`python api.py`
+```
+python api.py
+```
 
 ## Running Streamlit
 To run the streamlit environment you will need to execute a python file from the streamlit package. This can be done by using
-`python -m streamlit run movie_recommender.py`
+```
+python -m streamlit run movie_recommender.py
+```
