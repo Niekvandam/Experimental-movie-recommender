@@ -27,10 +27,11 @@ class MovieChoiceExplainer():
 
 class MovieDataRetriever():
     def get_movie_by_title(self, title: str, year: str = None) -> bool:
+        logging.info("Validating movie: %s", title)
         response = requests.get(OMDB_URL, params={"apikey": omdb_api_key, "t": title, "plot": "full", "y": year})
+        logging.info(response.url)
         data = response.json()
         if data['Response'] == "True":
-            logging.info("Movie validated: %s", title)
             data['Plot'] = self.summarize_plot(data['Plot'])
             return data
         else:
@@ -84,7 +85,7 @@ class Movie():
         self.released = None
         self.actors = None
         self.longer_plot = None
-        self.set_attributes(self.movie_data_retriever.get_movie_by_title(title))
+        self.set_attributes(self.movie_data_retriever.get_movie_by_title(title=title, year=year))
         self.user_profile_used = user_profile
         if self.validated:
             self.longer_plot = self.movie_data_retriever.get_longer_plot(self.title)

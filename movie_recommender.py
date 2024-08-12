@@ -86,10 +86,10 @@ selected_actors = [actor_dict[actor] for actor in actors]
 selected_genres = [genre_dict[genre] for genre in genres]
 
 user_profile.genres = genres
-user_profile.actors = selected_actors
+user_profile.actors = actors
 user_profile.directors = directors
 user_profile.recent_watches = recent_watches.split(',')
-user_profile.themes = themes
+user_profile.themes = themes.split(',')
 user_profile.other_comments = other_comments
 
 # Button to generate recommendations

@@ -6,7 +6,7 @@ from recommenders.Recommender import RecommenderInterface
 from movie_data.tmdb import discover_movies
 from settings import AMOUNT_OF_MOVIES as amount
 from user_profile import UserProfile
-
+import streamlit as st
 
 def send_openai_request(prompt: str) -> str:
     """Sends request to OpenAI's chat endpoint and returns the response.
@@ -38,13 +38,17 @@ def parse_recommendations(recommendations: str) -> Dict[str, Movie]:
     Returns:
         Dict[str, Movie]: A dictionary with the movie title as key and the Movie object as value.
     """
-    movie_list = json.loads(recommendations).get('movies', [])
-    movie_dict = {}
-    for movie in movie_list:
-        # Turn movie from json into a Movie object
-        cur_movie = Movie(title=movie['title'], explanation=movie['explanation'])
-        movie_dict[movie['title']] = cur_movie
-    return movie_dict
+    try:
+        movie_list = json.loads(recommendations).get('movies', [])
+        movie_dict = {}
+        for movie in movie_list:
+            # Turn movie from json into a Movie object
+            cur_movie = Movie(title=movie['title'], explanation=movie['explanation'])
+            movie_dict[movie['title']] = cur_movie
+        return movie_dict
+    except Exception as e:
+        st.error(f"An error occurred while parsing the recommendations: {e}")
+        return {}
 
 def build_prompt(user_profile: UserProfile, current_movies: List = None) -> str:
     prompt = (

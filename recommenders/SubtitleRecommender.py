@@ -145,7 +145,7 @@ class SubtitleRecommender(RecommenderInterface):
             Dict[str, Movie]: returns an ordered dictionary of movies with the title as key and the Movie class as value.
         """
         # Create embedding for the user profile
-        logging.info("Generating recommendations based on subtitles")
+        logging.debug("Generating recommendations based on subtitles")
         user_embedding = create_preference_embedding(user_profile)
         movie_scores = []
         
@@ -164,10 +164,10 @@ class SubtitleRecommender(RecommenderInterface):
         logging.debug("Recommendation scores calculated")
         # Sort it by the similarity. This is [x[1]] because the tuple is (title, similarity)
         movie_scores.sort(key=lambda x: x[1], reverse=True)
-        logging.info("Recommendations sorted")
-        logging.info("The top 5 recommendations are:")
+        logging.debug("Recommendations sorted")
+        logging.debug("The top 5 recommendations are:")
         for title, score in movie_scores[:5]:
-            logging.info("%s: %s", title, score)
+            logging.debug("%s: %s", title, score)
             
         movie_dict = {}
         

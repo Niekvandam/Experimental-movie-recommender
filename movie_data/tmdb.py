@@ -46,29 +46,29 @@ def get_keyword_ids(keywords: List[str]) -> List[int]:
 def build_tmdb_discover_url(user_profile: UserProfile):
     url = TMDB_DISCOVERY_URL
     
-    if user_profile.genres != [""]:
+    if user_profile.genres != []:
         genre_dict = get_genres()
         genres = '|'.join(map(str, [genre_dict[genre] for genre in user_profile.genres]))
         url += f"&with_genres={genres}"
         
-    if user_profile.themes != [""]:
+    if user_profile.themes != "":
         keyword_ids = get_keyword_ids(user_profile.themes)
         keywords = '|'.join(map(str, keyword_ids))
         url += f"&with_keywords={keywords}"
         
-    if user_profile.actors != [""]:
-        cast = '|'.join(map(str, user_profile.actors))
-        url += f"&with_cast={cast}"
+    if user_profile.actors != []:
+        actor_dict = get_actors()
+        actors = '|'.join(map(str, [actor_dict[actor] for actor in user_profile.actors]))
+        logging.info(actors)
+        url += f"&with_cast={actors}"
         
-    if user_profile.directors != [""]:
+    if user_profile.directors != "":
         crew = '|'.join(map(str, user_profile.directors))
         url += f"&with_crew={crew}"
-        
     return url
 
 def discover_movies(user_profile: UserProfile) -> List:
     url = build_tmdb_discover_url(user_profile)
-    logging.error(f"URL: {url}")
     response = requests.get(url, headers=get_themoviedb_headers())
     data = response.json()
     if data.get('results') == []:
