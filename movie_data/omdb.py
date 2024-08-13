@@ -3,7 +3,7 @@ import os
 import logging
 
 from auth import get_openai_client
-from settings import OMDB_URL
+from settings import OMDB_URL, OPENAI_MODEL
 
 omdb_api_key = os.getenv('OMDB_API_KEY')
 client = get_openai_client()
@@ -22,7 +22,7 @@ def _summarize_plot(plot: str) -> str:
     logging.debug("Summarizing plot -> %s", plot)
     prompt = (f"Summarize the following plot:\n\n{plot}")
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=OPENAI_MODEL,
         messages=[
             {"role": "system", "content": "You are a helpful assistant that provides detailed movie recommendations."},
             {"role": "user", "content": prompt}

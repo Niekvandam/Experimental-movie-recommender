@@ -6,7 +6,7 @@ from Movie import Movie
 from auth import get_openai_client
 from recommenders.Recommender import RecommenderInterface
 from movie_data.tmdb import discover_movies
-from settings import AMOUNT_OF_MOVIES as amount
+from settings import AMOUNT_OF_MOVIES as amount, OPENAI_MODEL
 from user_profile import UserProfile
 
 def send_openai_request(prompt: str) -> str:
@@ -20,7 +20,7 @@ def send_openai_request(prompt: str) -> str:
     """
     client = get_openai_client()
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=OPENAI_MODEL,
         messages=[
             {"role": "system", "content": "You are a movie expert that provides detailed movie recommendations in JSON format."},
             {"role": "user", "content": prompt}

@@ -15,3 +15,11 @@ SRT_JSON_PATH = "data/json/subtitles.json"
 SRT_PATH = "data/subtitles/"
 
 SRT_INTERVAL = 10 
+
+OPENAI_MODEL = "gpt-3.5-turbo-1106" # Alternatively, gpt-4, gpt-4-turbo, gpt-4o, gpt-4o-mini
+
+# Alternatively, text-embedding-3-large, text-embedding-3-small, text-embedding-ada-002
+# PLEASE NOTE: embedding models are UNIQUE in their output. Meaning that if a different model is used,
+# the .json files will have to be removed and re-generated. Otherwise, the subtitles and worst movie recommender will not work
+# as the cosine similarity can't be calculated.
+EMBEDDING_MODEL = "text-embedding-3-small" 

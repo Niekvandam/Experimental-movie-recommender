@@ -1,6 +1,7 @@
 from typing import Dict, List
 import numpy as np
 from auth import get_openai_client
+from settings import EMBEDDING_MODEL
 from user_profile import UserProfile
 import json
 import logging
@@ -26,7 +27,7 @@ def create_preference_embedding(user_profile: UserProfile) -> List[float]:
 
 def create_text_embedding(text: str) -> List[float]:
     response = get_openai_client().embeddings.create(
-        model="text-embedding-ada-002",
+        model=EMBEDDING_MODEL,
         input=text
     )
     # Extract the embedding data from the response

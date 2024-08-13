@@ -1,6 +1,7 @@
 from auth import get_openai_client
 from settings import OMDB_URL
 from user_profile import UserProfile
+from settings import OPENAI_MODEL
 
 import os
 import logging
@@ -15,7 +16,7 @@ class MovieChoiceExplainer():
         """Generates a short explanation of why the user would like the movie based on the user profile metadata."""        
         metadata = user_profile.to_metadata_str()
         explanation = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model=OPENAI_MODEL,
             messages=[
                 {"role": "system", "content": "You are a movie expert that provides compact movie recommendations. Take a deep breath, and let's get started!"},
                 {"role": "system", "content": f"Movie plot: {movie.longer_plot}"},
@@ -77,7 +78,7 @@ class MovieDataRetriever():
         logging.debug("Summarizing plot with AI")
         prompt = (f"Summarize the following plot:\n\n{plot}")
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model=OPENAI_MODEL,
             messages=[
                 {"role": "system", "content": "You are a helpful assistant that has in-depth movie knowledge."},
                 {"role": "user", "content": prompt}
