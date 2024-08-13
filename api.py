@@ -70,6 +70,7 @@ def read_root():
 
 if __name__ == "__main__":
     import uvicorn    
-    load_dotenv()
-    uvicorn.run(app, host="127.0.0.1", port=8000)
-    
+    if load_dotenv():
+        uvicorn.run(app, host="127.0.0.1", port=8000)
+    else:
+        print("Could not load .env file, please make sure it exists in the root directory of the project.")    

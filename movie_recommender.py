@@ -26,6 +26,7 @@ user_profile = UserProfile()
 # Load .env file
 if not load_dotenv():
     st.error("Could not load .env file, please make sure it exists in the root directory of the project.")
+    
 
 actor_dict = get_actors()
 genre_dict = get_genres()
