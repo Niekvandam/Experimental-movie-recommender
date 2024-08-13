@@ -36,7 +36,6 @@ def parse_form(recommendation_system, user_profile):
     # Filter movies with self.validated = True
     recommended_movies = {movie: details for movie, details in recommended_movies.items() if details.validated}
     st.session_state.movies_dict = recommended_movies
-   
     
 def get_recommendation_system(recommendation_system):
     if recommendation_system == "Pure AI":
@@ -50,39 +49,28 @@ def get_recommendation_system(recommendation_system):
     else:
         return FullAIRecommender
     
-def update_user_profile():
-    user_profile.genres = genres
-    user_profile.actors = selected_actors
-    user_profile.directors = directors
-    user_profile.recent_watches = recent_watches.split(',')
-    user_profile.themes = themes
-    user_profile.other_comments = other_comments
-
-
 user_profile = UserProfile()
 
-
-# Streamlit form
+# Streamlit heading
 st.subheader("User Preferences")
+
+# Sidebar, with recommendation and explanation
 recommendation_system = st.sidebar.selectbox("Recommendation System", ["Pure AI", "AI-Assisted", "Worst wikipedia movies", "Subtitle embeddings"])
 st.sidebar.write(recommendation_explanation)
+
 # Create two columns for user input
 col1, col2 = st.columns(2)
 with col1:
     genres = st.multiselect("Preferred Genres", genre_dict.keys())
     actors = st.multiselect("Favorite Actors", actor_dict.keys())
     directors = st.text_input("Favorite Directors")
-    
 
 with col2:
     recent_watches = st.text_input("Recent Watches")
     themes = st.text_input("Favorite Themes", "Friendship, Love, Programming")
     other_comments = st.text_input("Additional Preferences")
 
-
-selected_actors = [actor_dict[actor] for actor in actors]
-selected_genres = [genre_dict[genre] for genre in genres]
-
+# Set selected values in user_profile
 user_profile.genres = genres
 user_profile.actors = actors
 user_profile.directors = directors

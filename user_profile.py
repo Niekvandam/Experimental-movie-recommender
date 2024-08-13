@@ -22,7 +22,7 @@ class UserProfile(BaseModel):
         Returns:
             str: A string representation of the user profile metadata. Separated by newlines.
         """
-        attribute_dump = self.model_dump()
+        attribute_dump = self.model_dump(exclude_unset=True, exclude_none=False)
         metadata_str = ""
         
         for key in attribute_dump:

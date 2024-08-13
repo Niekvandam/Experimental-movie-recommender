@@ -13,13 +13,16 @@ def cosine_similarity(vec1: List[float], vec2: List[float]) -> float:
 
 
 def create_preference_embedding(user_profile: UserProfile) -> List[float]:
+    """Creates an embedding string from the user profile and returns the embedding data.
+
+    Args:
+        user_profile (UserProfile): The user profile to embed
+
+    Returns:
+        List[float]: Returns an embedding arary
+    """
     metadata = user_profile.to_metadata_str()
-    preference_embedding = get_openai_client().embeddings.create(
-        model="text-embedding-ada-002",
-        input=metadata
-    )
-    # Extract the embedding data from the response
-    return preference_embedding.data[0].embedding
+    return create_text_embedding(metadata)
 
 def create_text_embedding(text: str) -> List[float]:
     response = get_openai_client().embeddings.create(
