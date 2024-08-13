@@ -1,13 +1,13 @@
 import logging
 import os
-from typing import List, Dict
 import requests
 import json
+
+from typing import Dict
 from bs4 import BeautifulSoup
 from Movie import Movie
 from recommenders.Recommender import RecommenderInterface
 from settings import WIKIPEDIA_JSON_PATH, AMOUNT_OF_MOVIES, WORST_WIKIPEDIA_URL
-from auth import get_openai_client
 from helpers import cosine_similarity, create_preference_embedding, create_text_embedding, load_json_data
 from user_profile import UserProfile
 

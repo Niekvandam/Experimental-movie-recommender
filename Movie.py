@@ -1,10 +1,10 @@
-import os
-import logging
-import requests
-
 from auth import get_openai_client
 from settings import OMDB_URL
 from user_profile import UserProfile
+
+import os
+import logging
+import requests
 import wikipediaapi
 
 omdb_api_key = os.getenv('OMDB_API_KEY')
@@ -26,7 +26,7 @@ class MovieChoiceExplainer():
         return explanation.choices[0].message.content.strip()
 
 class MovieDataRetriever():
-    def get_movie_by_title(self, title: str, year: str = None) -> bool:
+    def get_movie_by_title(self, title: str, year: str = None) -> dict | None:
         logging.info("Validating movie: %s", title)
         response = requests.get(OMDB_URL, params={"apikey": omdb_api_key, "t": title, "plot": "full", "y": year})
         logging.info(response.url)
@@ -36,7 +36,7 @@ class MovieDataRetriever():
             return data
         else:
             logging.error("Movie not found: %s", title)
-            return False
+            return None
     
     def get_longer_plot(self, title) -> str:
         wiki_wiki = wikipediaapi.Wikipedia(user_agent='movie-recommender',language='en')
@@ -80,7 +80,6 @@ class Movie():
         self.country = None
         self.language = None
         self.imdbrating = None
-        self.awards = None
         self.runtime = None
         self.released = None
         self.actors = None

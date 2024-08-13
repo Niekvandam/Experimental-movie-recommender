@@ -1,4 +1,6 @@
 import json
+import streamlit as st
+
 from typing import Dict, List
 from Movie import Movie
 from auth import get_openai_client
@@ -6,7 +8,6 @@ from recommenders.Recommender import RecommenderInterface
 from movie_data.tmdb import discover_movies
 from settings import AMOUNT_OF_MOVIES as amount
 from user_profile import UserProfile
-import streamlit as st
 
 def send_openai_request(prompt: str) -> str:
     """Sends request to OpenAI's chat endpoint and returns the response.
@@ -39,6 +40,7 @@ def parse_recommendations(recommendations: str) -> Dict[str, Movie]:
         Dict[str, Movie]: A dictionary with the movie title as key and the Movie object as value.
     """
     try:
+        print(recommendations)
         movie_list = json.loads(recommendations).get('movies', [])
         movie_dict = {}
         for movie in movie_list:
@@ -47,10 +49,11 @@ def parse_recommendations(recommendations: str) -> Dict[str, Movie]:
             movie_dict[movie['title']] = cur_movie
         return movie_dict
     except Exception as e:
-        st.error(f"An error occurred while parsing the recommendations: {e}")
+        st.error(f"An error occurred while parsing the recommendations: {e} \n Please try again!")
+        
         return {}
 
-def build_prompt(user_profile: UserProfile, current_movies: List = None) -> str:
+def build_prompt(user_profile: UserProfile, current_movies: List = []) -> str:
     prompt = (
         f"The user likes movies with the following genres: {user_profile.genres}. "
         f"Their favorite themes are: {user_profile.themes}. "
@@ -59,7 +62,7 @@ def build_prompt(user_profile: UserProfile, current_movies: List = None) -> str:
         f"Recently, they watched: {user_profile.recent_watches}. DO NOT recommend these movies again."
         f"Other comments: {user_profile.other_comments}. "
     )
-    if current_movies:
+    if current_movies != []:
         movie_list = ', '.join(movie['original_title'] for movie in current_movies)
         prompt += (
             f"Currently we have this list of movies: [{movie_list}]. "
@@ -67,8 +70,10 @@ def build_prompt(user_profile: UserProfile, current_movies: List = None) -> str:
             "Additionally, add extra movies if the list is not exhaustive enough yet. "
         )
     prompt += (
-        "Return a list of movies in JSON format with the title and a 3-sentence explanation why the user would like this movie. "
-        f"Recommend at least {amount} movies."
+        "Return a list of movies that the user would like, taking all preferences into account where possible."
+        "Return the list in JSON format with the title (in english) and a 3-sentence HONEST explanation why the user would like this movie."
+        "Example format: {\"movies\": [{\"title\": \"Movie title\", \"explanation\": \"Explanation why user would like this movie.\"}]} "
+        f"Recommend at least {amount} movies. Be creative in recommendations, honest in explanations"
     )
     return prompt
 

@@ -1,25 +1,14 @@
 from typing import List
-from fastapi import FastAPI
-from pydantic import BaseModel
-from settings import TMDB_URL, TMDB_DISCOVERY_URL
-
-import logging
-import streamlit as st
-
-from movie_data.omdb import get_movie_by_title
-from dotenv import load_dotenv
-
 from enum import Enum
 from typing import List
 from fastapi import FastAPI
-from pydantic import BaseModel
-from settings import TMDB_URL, TMDB_DISCOVERY_URL
-import logging
-import streamlit as st
 from recommenders.SubtitleRecommender import SubtitleRecommender
 from recommenders.OpenAIRecommender import AIAssistRecommender, PureAIRecommender
 from recommenders.WorstMovieRecommender import  WorstMovieRecommender
 from movie_data.tmdb import get_genres, get_actors, get_keyword_ids, discover_movies
+from movie_data.omdb import get_movie_by_title
+from dotenv import load_dotenv
+from fastapi import FastAPI
 from movie_data.omdb import get_movie_by_title
 from dotenv import load_dotenv
 import uvicorn
@@ -33,7 +22,6 @@ class RecommendationSystem(str, Enum):
     AIASSIST = "aiassist"
     PUREAI = "pureai"
     WORSTMOVIE = "worstmovie"
-
 
 @app.post("/recommend/{system}", tags=["Recommendations"])
 def recommend(system: RecommendationSystem, user_profile: UserProfile):

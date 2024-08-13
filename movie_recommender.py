@@ -1,16 +1,14 @@
 import streamlit as st
+import logging
 
 from movie_data.tmdb import get_genres, get_actors, get_keyword_ids, discover_movies
 from dotenv import load_dotenv
-from settings import AMOUNT_OF_MOVIES
-
 from recommenders.SubtitleRecommender import SubtitleRecommender
 from recommenders.OpenAIRecommender import AIAssistRecommender, PureAIRecommender
 from recommenders.WorstMovieRecommender import  WorstMovieRecommender
-
-import logging
 from data.explanation import recommendation_explanation
 from user_profile import UserProfile
+
 st.set_page_config(layout="wide")
 # Set up logging
 logging.basicConfig(level=logging.INFO)

@@ -1,9 +1,10 @@
+import numpy as np
+import pysrt
 import json
 import logging
 import os
-from typing import Dict, List
-import numpy as np
-import pysrt
+
+from typing import Dict
 from Movie import Movie
 from recommenders.Recommender import RecommenderInterface
 from settings import SRT_JSON_PATH, SRT_PATH, SRT_INTERVAL

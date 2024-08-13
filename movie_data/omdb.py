@@ -1,6 +1,7 @@
 import requests
 import os
 import logging
+
 from auth import get_openai_client
 from settings import OMDB_URL
 
